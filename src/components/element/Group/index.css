@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.MuiGrid-spacing-xs-16-29 > .MuiGrid-item-7 {
+    padding: 0px !important;
+}
+
+.MediaCard-media-222 {
+    background-size: contain !important;
+    width: 80%;
+    height: 80%;
+    display: flex;
+}
+
+a {
+    color: black !important;
+    font-family: 'Roboto', sans-serif;
+}

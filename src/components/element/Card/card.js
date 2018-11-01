@@ -10,9 +10,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
-  card: {
-    maxWidth: 220,
-  },
   media: {
     height: 0,
     paddingTop: '100%'
@@ -29,7 +26,7 @@ function MediaCard(props) {
           image={product.image}
           title={product.title}
         />
-        <CardContent className={classes.content}>
+        <CardContent className={classes.content} >
           <Typography align="left" gutterBottom>
             {product.title}
           </Typography>
@@ -42,7 +39,7 @@ function MediaCard(props) {
         <Button size="small" variant="contained" color="secondary">
           {product.price}
         </Button>
-        <Button size="small" variant="contained" color="primary">
+        <Button size="small" variant="contained" color="default" href="#">
           MUA HÀNG
         </Button>
       </CardActions>

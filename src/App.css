@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab');
+
 .App {
   text-align: center;
   margin: 0px auto;
-  max-width: 1400px;
+  max-width: 1300px;
 }
