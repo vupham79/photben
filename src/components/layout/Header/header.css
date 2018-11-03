@@ -2,6 +2,18 @@
     transform: none !important;
 }
 
+.MuiDialogTitle-root-304 {
+    margin: 0 auto !important;
+}
+
+.MuiFormLabel-root-114.MuiFormLabel-focused-115 {
+    color: black !important;
+}
+
+.MuiInputBase-input-144:focus {
+    outline-color: red !important;
+}
+
 .slick-dots {
     bottom: 10px !important;
     color:white;

@@ -14,6 +14,8 @@ const styles = {
     height: 0,
     paddingTop: '100%'
   },
+  card: {
+  }
 };
 
 function MediaCard(props) {

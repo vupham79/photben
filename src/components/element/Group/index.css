@@ -4,14 +4,36 @@
     padding: 0px !important;
 }
 
-.MediaCard-media-222 {
+.group .MuiGrid-item-7 .MuiGrid-grid-lg-2-78 {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    flex-direction: column;
+}
+
+.group .MediaCard-media-222 {
     background-size: contain !important;
-    width: 80%;
-    height: 80%;
+    width: 60%;
+    height: 100%;
     display: flex;
 }
 
-a {
+.group .MuiCardMedia-root-255 {
+    display: inline-block !important;    
+}
+
+.group .slick-slider {
+    height: 100% !important;
+}
+
+.group .slick-list {
+    min-height: 100% !important;
+}
+
+.group a {
     color: black !important;
     font-family: 'Roboto', sans-serif;
+    height: 50%;
+    display: flex;
+    margin-left: 16px;
+    margin-right: 16px;
 }

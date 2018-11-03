@@ -2,8 +2,8 @@ import React from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import { Dehaze } from '@material-ui/icons';
 import { Grid, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core';
-import Cart from './../element/Cart/cart';
-import Slick from './../element/SlickSlider/slick';
+import Cart from '../../element/Cart/cart';
+import Slick from '../../element/SlickSlider/slick';
 import './header.css';
 
 const styles = theme => ({
@@ -52,6 +52,26 @@ class Header extends React.Component {
                 link: 'https://asset.msi.com/global/picture/wallpaper/nb_intel_7th.jpg',
             }
         ]
+        const header_image = [
+            {
+                link: 'https://wallpaperplay.com/walls/full/7/3/1/124360.jpg',
+            },
+            {
+                link: 'https://www.setaswall.com/wp-content/uploads/2018/03/MSI-Wallpaper-27-1920x1080.jpg',
+            },
+            {
+                link: 'https://asset.msi.com/global/picture/wallpaper/nb_intel_7th.jpg',
+            },
+            {
+                link: 'https://wallpaperplay.com/walls/full/7/3/1/124360.jpg',
+            },
+            {
+                link: 'https://www.setaswall.com/wp-content/uploads/2018/03/MSI-Wallpaper-27-1920x1080.jpg',
+            },
+            {
+                link: 'https://asset.msi.com/global/picture/wallpaper/nb_intel_7th.jpg',
+            },
+        ]
         const logo = "http://media.msi.com/main.php?g2_view=downloadlink.OfferDownload&g2_itemId=166679";
         return (
             <Grid
@@ -82,7 +102,7 @@ class Header extends React.Component {
                     <Cart />
                 </Grid>
                 <Grid item>
-                    <Button onClick={this.handleClickOpenSignin}>Sign In</Button>
+                    <Button onClick={this.handleClickOpenSignin} style={{margin: '0 auto'}}>Sign In</Button>
                     <Dialog
                         open={this.state.openSignin}
                         onClose={this.handleCloseSignin}
@@ -101,6 +121,11 @@ class Header extends React.Component {
                                     margin="normal"
                                     variant="outlined"
                                     fullWidth
+                                    InputProps={{
+                                        classes: {
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
                                 />
                                 <TextField
                                     id="outlined-password-input"
@@ -110,6 +135,11 @@ class Header extends React.Component {
                                     margin="normal"
                                     variant="outlined"
                                     fullWidth
+                                    InputProps={{
+                                        classes: {
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
                                 />
                             </DialogContentText>
                         </DialogContent>
@@ -149,11 +179,11 @@ class Header extends React.Component {
                     </Grid>
                     <Grid item container lg={8}>
                         <Grid item lg={12}>
-                            <Slick image={header_slider_image}/>
+                            <Slick image={header_slider_image} />
                         </Grid>
                         <Grid item lg={6}>
                             <div>
-                                <div style={{ backgroundImage: 'url("https://wallpaperaccess.com/full/316002.jpg")', minHeight: '200px', backgroundSize: 'contain' }}>
+                                <div className='' style={{ backgroundImage: 'url("https://wallpaperaccess.com/full/316002.jpg")', minHeight: '200px', backgroundSize: 'contain' }}>
                                 </div>
                             </div>
                         </Grid>

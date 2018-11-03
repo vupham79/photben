@@ -118,12 +118,12 @@ function SimpleTable(props) {
         }
     }
     return (
-        <Grid container spacing={16} style={{ border: '2px solid #40403f', marginTop: 'auto' }}>
-            <Grid item container lg={12} justify="space-between" style={{ borderBottom: '2px solid #40403f' }}>
+        <Grid container className='group' spacing={16} style={{ border: '2px solid #40403f', marginTop: 'auto' }}>
+            <Grid item container lg={12} justify="space-between" style={{ borderBottom: '2px solid #40403f', height: '80px' }}>
                 <Grid item lg={2} style={{ backgroundColor: '#f1f4f9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <a href="#" style={{ textDecoration: 'none', fontWeight: 'bold' }}>{data.category.title}</a>
                 </Grid>
-                <Grid item lg={2} justify={'space-evenly'}>
+                <Grid item lg={2}>
                     {data.subcategories.map(subcategory => {
                         return (
                             <a href={subcategory.link} style={{ textDecoration: 'none' }}>{subcategory.title}</a>
