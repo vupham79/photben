@@ -2,8 +2,13 @@ import React from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import { Dehaze } from '@material-ui/icons';
 import { Grid, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core';
+import { MenuList, MenuItem } from '@material-ui/core';
 import Cart from '../../element/Cart/cart';
-import Slick from '../../element/SlickSlider/slick';
+import { Link } from 'react-router-dom';
+import { login } from './../../../actions';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import './header.css';
 
 const styles = theme => ({
@@ -26,198 +31,236 @@ const styles = theme => ({
     }
 });
 
-class Header extends React.Component {
-    state = {
-        openSignin: false,
-    };
+const Header = withRouter(
+    class extends React.Component {
+        state = {
+            openSignin: false,
+            openMenu: false,
+            username: '',
+            fullname: '',
+            password: '',
+        };
 
-    handleClickOpenSignin = () => {
-        this.setState({ openSignin: true });
-    };
+        onChangeUsername = (e) => {
+            this.setState({ username: e.target.value });
+        }
 
-    handleCloseSignin = () => {
-        this.setState({ openSignin: false });
-    };
+        onChangePassword = (e) => {
+            this.setState({ password: e.target.value });
+        }
 
-    render() {
-        const { classes } = this.props;
-        const header_slider_image = [
-            {
-                link: 'https://wallpaperplay.com/walls/full/7/3/1/124360.jpg',
-            },
-            {
-                link: 'https://www.setaswall.com/wp-content/uploads/2018/03/MSI-Wallpaper-27-1920x1080.jpg',
-            },
-            {
-                link: 'https://asset.msi.com/global/picture/wallpaper/nb_intel_7th.jpg',
-            }
-        ]
-        const header_image = [
-            {
-                link: 'https://wallpaperplay.com/walls/full/7/3/1/124360.jpg',
-            },
-            {
-                link: 'https://www.setaswall.com/wp-content/uploads/2018/03/MSI-Wallpaper-27-1920x1080.jpg',
-            },
-            {
-                link: 'https://asset.msi.com/global/picture/wallpaper/nb_intel_7th.jpg',
-            },
-            {
-                link: 'https://wallpaperplay.com/walls/full/7/3/1/124360.jpg',
-            },
-            {
-                link: 'https://www.setaswall.com/wp-content/uploads/2018/03/MSI-Wallpaper-27-1920x1080.jpg',
-            },
-            {
-                link: 'https://asset.msi.com/global/picture/wallpaper/nb_intel_7th.jpg',
-            },
-        ]
-        const logo = "http://media.msi.com/main.php?g2_view=downloadlink.OfferDownload&g2_itemId=166679";
-        return (
-            <Grid
-                container spacing={24} direction="row"
-                justify="space-evenly"
-                alignItems="center"
-                style={{ backgroundColor: '#f1f4f9' }}
-            >
-                <Grid item>
-                    <img src={logo} alt='Logo' width={200} />
-                </Grid>
-                <Grid item lg={8}>
-                    <TextField
-                        id="outlined-search"
-                        label="Search"
-                        type="search"
-                        margin="normal"
-                        variant="outlined"
-                        fullWidth
-                        InputProps={{
-                            classes: {
-                                notchedOutline: classes.notchedOutline,
-                            }
-                        }}
-                    />
-                </Grid>
-                <Grid item>
-                    <Cart />
-                </Grid>
-                <Grid item>
-                    <Button onClick={this.handleClickOpenSignin} style={{margin: '0 auto'}}>Sign In</Button>
-                    <Dialog
-                        open={this.state.openSignin}
-                        onClose={this.handleCloseSignin}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">{"Sign in"}</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                                <TextField
-                                    id="outlined-email-input"
-                                    label="Email"
-                                    type="email"
-                                    name="email"
-                                    autoComplete="email"
-                                    margin="normal"
-                                    variant="outlined"
-                                    fullWidth
-                                    InputProps={{
-                                        classes: {
-                                            notchedOutline: classes.notchedOutline,
-                                        }
-                                    }}
-                                />
-                                <TextField
-                                    id="outlined-password-input"
-                                    label="Password"
-                                    type="password"
-                                    autoComplete="current-password"
-                                    margin="normal"
-                                    variant="outlined"
-                                    fullWidth
-                                    InputProps={{
-                                        classes: {
-                                            notchedOutline: classes.notchedOutline,
-                                        }
-                                    }}
-                                />
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions >
-                            <Button onClick={this.handleCloseSignin} color="primary">
-                                Cancel
-                            </Button>
-                            <Button onClick={this.handleCloseSignin} color="primary" autoFocus>
-                                Log In
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-                </Grid>
-                <Grid item container lg={12} style={{ backgroundColor: '#e9e9e9', padding: 0, minHeight: '50px' }}>
-                    <Grid item lg={2}>
-                        <Button
-                            aria-haspopup="true"
-                            style={{ backgroundColor: 'rgba(0, 0, 0, 0.12)', height: '100%', width: '100%' }}
+        handleSubmit = () => {
+            this.props.login({
+                data: {
+                    username: this.state.username,
+                    password: this.state.password,
+                },
+                response: {
+                    success: async () => {
+                        this.props.history.push('/');
+                    },
+                    failure: async (mess = 'Đăng nhập không thành công') => {
+                    },
+                },
+            });
+            this.handleCloseSignin();
+        }
+
+        handleClickOpenSignin = () => {
+            this.setState({ openSignin: true });
+        };
+
+        handleCloseSignin = () => {
+            this.setState({ openSignin: false });
+        };
+
+        handleOpenMenu = () => {
+            this.setState({ openMenu: !this.state.openMenu });
+        }
+
+        render() {
+            const { classes } = this.props;
+            const logo = "http://media.msi.com/main.php?g2_view=downloadlink.OfferDownload&g2_itemId=166679";
+            const categories = [
+                {
+                    title: "Thông tin",
+                    link: '#',
+                },
+                {
+                    title: "Đăng nhập",
+                    link: '#',
+                },
+                {
+                    title: "Đăng xuất",
+                    link: '#',
+                },
+                {
+                    title: "Thông tin",
+                    link: '#',
+                },
+                {
+                    title: "Đăng nhập",
+                    link: '#',
+                },
+                {
+                    title: "Đăng xuất",
+                    link: '#',
+                },
+            ];
+            return (
+                <div className='header'>
+                    <div style={{ backgroundColor: '#f1f4f9', margin: '0 auto' }}>
+                        <Grid
+                            container direction="row"
+                            justify="space-evenly"
+                            alignItems="center"
+                            style={{ maxWidth: '1280px', margin: '0 auto' }}
                         >
-                            <Dehaze />
-                            &nbsp;	&nbsp;
-                            Danh mục sản phẩm
-                        </Button>
-                    </Grid>
-                </Grid >
-                <Grid item container lg={12} justify={'space-between'} style={{ padding: '0' }}>
-                    <Grid item container lg={2} style={{ backgroundColor: '#e9e9e9' }}>
-                        <Grid item lg={12} style={{ height: '400px' }}>
-
+                            <Grid item>
+                                <Link to='/'><img src={logo} alt='Logo' width={200} /></Link>
+                            </Grid>
+                            <Grid item md={6} xs={6}>
+                                <TextField
+                                    id="outlined-search"
+                                    label="Search"
+                                    type="search"
+                                    margin="normal"
+                                    variant="outlined"
+                                    fullWidth
+                                    InputProps={{
+                                        classes: {
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Cart />
+                            </Grid>
+                            <Grid item>
+                                <Button onClick={this.handleClickOpenSignin} style={{ margin: '0 auto' }}>{this.props.user.isAuth ? this.props.user.info.fullname : 'Đăng nhập'}</Button>
+                                <Dialog
+                                    open={this.state.openSignin}
+                                    onClose={this.handleCloseSignin}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">{"Đăng nhập"}</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-description">
+                                            <TextField
+                                                id="outlined-email-input"
+                                                label="Email"
+                                                type="email"
+                                                name="email"
+                                                autoComplete="email"
+                                                margin="normal"
+                                                variant="outlined"
+                                                onChange={this.onChangeUsername}
+                                                fullWidth
+                                                InputProps={{
+                                                    classes: {
+                                                        notchedOutline: classes.notchedOutline,
+                                                    }
+                                                }}
+                                            />
+                                            <TextField
+                                                id="outlined-password-input"
+                                                label="Mật khẩu"
+                                                type="password"
+                                                autoComplete="current-password"
+                                                margin="normal"
+                                                variant="outlined"
+                                                onChange={this.onChangePassword}
+                                                fullWidth
+                                                InputProps={{
+                                                    classes: {
+                                                        notchedOutline: classes.notchedOutline,
+                                                    }
+                                                }}
+                                            />
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions >
+                                        <Button onClick={this.handleCloseSignin} color="primary">
+                                            Hủy bỏ
+                            </Button>
+                                        <Button onClick={this.handleSubmit} color="primary" autoFocus>
+                                            Đăng nhập
+                            </Button>
+                                    </DialogActions>
+                                </Dialog>
+                            </Grid>
                         </Grid>
-                        <Grid item lg={12}>
-                            <div>
-                                <div style={{ backgroundImage: 'url("https://www.setaswall.com/wp-content/uploads/2018/03/MSI-Wallpaper-08-1920x1080.jpg")', minHeight: '200px', backgroundSize: 'contain' }}>
-                                </div>
-                            </div>
-                        </Grid>
-                    </Grid>
-                    <Grid item container lg={8}>
-                        <Grid item lg={12}>
-                            <Slick image={header_slider_image} />
-                        </Grid>
-                        <Grid item lg={6}>
-                            <div>
-                                <div className='' style={{ backgroundImage: 'url("https://wallpaperaccess.com/full/316002.jpg")', minHeight: '200px', backgroundSize: 'contain' }}>
-                                </div>
-                            </div>
-                        </Grid>
-                        <Grid item lg={6}>
-                            <div>
-                                <div style={{ backgroundImage: 'url("https://www.desktopbackground.org/p/2012/06/18/407355_hd-msi-wallpapers_1920x1080_h.jpg")', minHeight: '200px', backgroundSize: 'contain' }}>
-                                </div>
-                            </div>
-                        </Grid>
-                    </Grid>
-                    <Grid item lg={2}>
-                        <Grid item lg={12}>
-                            <div>
-                                <div style={{ backgroundImage: 'url("https://easylife-online.com/wp-content/uploads/data/2018/1/6/streaming-engine-part-PIC-WSW20512876.jpg")', minHeight: '200px', backgroundSize: 'contain' }}>
-                                </div>
-                            </div>
-                        </Grid>
-                        <Grid item lg={12}>
-                            <div>
-                                <div style={{ backgroundImage: 'url("https://stmed.net/sites/default/files/msi-wallpapers-30729-4847704.jpg")', minHeight: '200px', backgroundSize: 'contain' }}>
-                                </div>
-                            </div>
-                        </Grid>
-                        <Grid item lg={12}>
-                            <div>
-                                <div style={{ backgroundImage: 'url("http://wallpaper-gallery.net/images/wallpaper-msi/wallpaper-msi-9.jpg")', minHeight: '200px', backgroundSize: 'contain' }}>
-                                </div>
-                            </div>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid >
-        )
+                    </div>
+                    <div className='menu-button-container'>
+                        <Grid container lg={12} style={{ maxWidth: '1280px', margin: '0 auto' }}>
+                            <Grid item container md={2} xs={12}>
+                                <ul className="menu-button">
+                                    <li>
+                                        <Button
+                                            aria-haspopup="true"
+                                            style={{ backgroundColor: 'rgba(0, 0, 0, 0.12)', height: '100%', width: '100%' }}
+                                            onClick={this.handleOpenMenu}
+                                            className="button"
+                                        >
+                                            <Grid item container justify={'center'}>
+                                                <Grid item>
+                                                    <Dehaze />
+                                                </Grid>
+                                                <Grid item style={{ alignSelf: 'center' }}>
+                                                    Danh mục sản phẩm
+                                            </Grid>
+                                            </Grid>
+                                        </Button>
+                                        <Grid container lg={2} xs={2} className="menu" style={{ display: this.state.openMenu ? 'block' : 'none' }}>
+                                            <MenuList>
+                                                {categories.map(category => {
+                                                    return (
+                                                        <Link to={category.link} style={{ textDecoration: 'none' }}>
+                                                            <MenuItem>
+                                                                {category.title}
+                                                                <MenuList>
+                                                                    <MenuItem>
+                                                                        {category.title}
+                                                                    </MenuItem>
+                                                                    <MenuItem>
+                                                                        {category.title}
+                                                                    </MenuItem>
+                                                                    <MenuItem>
+                                                                        {category.title}
+                                                                    </MenuItem>
+                                                                    <MenuItem>
+                                                                        {category.title}
+                                                                    </MenuItem>
+                                                                    <MenuItem>
+                                                                        {category.title}
+                                                                    </MenuItem>
+                                                                </MenuList>
+                                                            </MenuItem>
+                                                        </Link>
+                                                    )
+                                                })}
+                                            </MenuList>
+                                        </Grid>
+                                    </li>
+                                </ul>
+                            </Grid>
+                        </Grid >
+                    </div >
+                </div >
+            )
+        }
     }
-}
+)
 
-export default withStyles(styles)(Header);
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+const mapDispatchToProps = {
+    login,
+};
+
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Header));

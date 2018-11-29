@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -12,9 +13,14 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
   media: {
     height: 0,
-    paddingTop: '100%'
+    paddingTop: '100%',
+    width: '80%',
+    backgroundSize: 'contain',
+    margin: '0 auto',
   },
   card: {
+    maxWidth: '100%',
+    height: '100%',
   }
 };
 
@@ -22,7 +28,7 @@ function MediaCard(props) {
   const { classes, product } = props;
   return (
     <Card className={classes.card}>
-      <CardActionArea>
+      <CardActionArea href='#'>
         <CardMedia
           className={classes.media}
           image={product.image}
@@ -38,12 +44,18 @@ function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions style={{ backgroundColor: '#455a64' }}>
-        <Button size="small" variant="contained" color="secondary">
-          {product.price}
-        </Button>
-        <Button size="small" variant="contained" color="default" href="#">
-          MUA HÀNG
-        </Button>
+        <Grid container justify={'space-between'}>
+          <Grid item>
+            <Button size="small" variant="contained" color="secondary">
+              {product.price}
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button size="small" variant="contained" color="default" href="#">
+              MUA HÀNG
+            </Button>
+          </Grid>
+        </Grid>
       </CardActions>
     </Card>
   );

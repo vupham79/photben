@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './slick.css';
 import Slider from "react-slick";
 
 export default class Slick extends Component {
@@ -14,12 +15,12 @@ export default class Slick extends Component {
         };
         const { image } = this.props;
         return (
-            <div>
+            <div className='slick-slider'>
                 <Slider {...settings}>
                     {image.map(item => {
                         return (
                             <div>
-                                <div style={{ backgroundImage: `url("${item.link}")`, backgroundSize: 'contain', minHeight: '400px' }}>
+                                <div style={{ backgroundImage: `url("${item.link}")`, backgroundSize: 'cover', minHeight: '400px' }}>
                                 </div>
                             </div>
                         )

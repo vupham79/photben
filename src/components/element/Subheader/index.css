@@ -1,0 +1,30 @@
+@media only screen and (max-width: 900px) {
+    .menu-button-container .menu-list {
+        display: none;
+    }
+    .subheader .menu-list {
+        display: none;
+    }
+    .below-menu-list {
+        display: none;
+    }
+    .menu-button-container:hover > .menu-list {
+        display: block;
+    }
+}
+
+.menu-list {
+    display: block;
+}
+
+.subheader .slick-list {
+    max-height: 400px
+}
+
+.subheader .menu-list {
+    overflow-y: auto;
+}
+
+.subheader .menu-list .menu{
+    padding: 0;
+}

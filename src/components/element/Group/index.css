@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+.group-container {
+    margin-top: 30px;
+}
+
+.group {
+    overflow: hidden;
+}
+
 .MuiGrid-spacing-xs-16-29 > .MuiGrid-item-7 {
     padding: 0px !important;
 }
@@ -8,13 +16,16 @@
     display: flex;
     flex-wrap: wrap-reverse;
     flex-direction: column;
+    margin: auto 0;
+    height: 70%;
 }
 
-.group .MediaCard-media-222 {
+.group .MediaCard-media-100 {
     background-size: contain !important;
     width: 60%;
     height: 100%;
-    display: flex;
+    padding-top: 100%;
+    margin: 0 auto;
 }
 
 .group .MuiCardMedia-root-255 {
@@ -29,11 +40,45 @@
     min-height: 100% !important;
 }
 
-.group a {
+.group .head-left a {
     color: black !important;
     font-family: 'Roboto', sans-serif;
     height: 50%;
-    display: flex;
+}
+
+.group .head-right a {
+    color: black !important;
+    font-family: 'Roboto', sans-serif;
+    height: 50%;
     margin-left: 16px;
     margin-right: 16px;
+}
+
+.head-left {
+    background-color: rgb(233, 233, 233);
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.head-right-container {
+    overflow: auto;
+}
+.head-right {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.group .body-left {
+    width: 100%;
+    height: 100%;
+}
+
+.group .body-left img {
+    width: 100%;
+    height: 100%;
 }

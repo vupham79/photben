@@ -1,30 +1,49 @@
-#menu-list-grow {
+.header #menu-list-grow {
     transform: none !important;
 }
 
-.MuiDialogTitle-root-304 {
+.header .MuiDialogTitle-root-304 {
     margin: 0 auto !important;
 }
 
-.MuiFormLabel-root-114.MuiFormLabel-focused-115 {
+.header .MuiFormLabel-root-114.MuiFormLabel-focused-115 {
     color: black !important;
 }
 
-.MuiInputBase-input-144:focus {
+.header .MuiInputBase-input-144:focus {
     outline-color: red !important;
 }
 
-.slick-dots {
-    bottom: 10px !important;
-    color:white;
+.header .menu-button-container {
+    background-color: #e9e9e9;
+    padding: 0;
 }
 
-.slick-list {
-    max-height: 400px
+.header .menu-button {
+    width: 100%;
 }
- 
-.slick-dots li button:before {
-    color: black !important;
-    border-radius: 100%;
-    background-color: white !important;
-  }
+
+.header .menu {
+    position: absolute;
+    padding: 0;
+    background-color: #e9e9e9;
+}
+
+.header .menu ul {
+    padding: 0;
+    width: 100%;
+}
+
+.header .menu-button-container .menu-button {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#alert-dialog-title {
+    margin: 0 auto;
+}
+
+.header .menu {
+    display: none;
+}

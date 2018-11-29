@@ -1,18 +1,10 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import Card from '../Card/card';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './index.css'
-
-const styles = theme => ({
-    root: {
-    },
-    table: {
-    },
-});
 
 function SimpleTable(props) {
     const settings = {
@@ -22,7 +14,32 @@ function SimpleTable(props) {
         slidesToShow: 4,
         slidesToScroll: 4,
         arrows: false,
-        autoplay: true
+        autoplay: false,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 800,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     }
     const data = {
         products: [
@@ -118,46 +135,50 @@ function SimpleTable(props) {
         }
     }
     return (
-        <Grid container className='group' spacing={16} style={{ border: '2px solid #40403f', marginTop: 'auto' }}>
-            <Grid item container lg={12} justify="space-between" style={{ borderBottom: '2px solid #40403f', height: '80px' }}>
-                <Grid item lg={2} style={{ backgroundColor: '#f1f4f9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <a href="#" style={{ textDecoration: 'none', fontWeight: 'bold' }}>{data.category.title}</a>
+        <div className='group-container'>
+            <Grid container className='group' spacing={16} style={{ border: '2px solid #40403f', maxWidth: '1280px', margin: '0 auto' }}>
+                <Grid item container md={12} xs={12} justify="space-between" style={{ borderBottom: '2px solid #40403f', height: '80px' }}>
+                    <Grid item md={2} xs={4} className='head-left'>
+                        <a href="#" style={{ textDecoration: 'none', fontWeight: 'bold' }}>{data.category.title}</a>
+                    </Grid>
+                    <Grid item container md={10} xs={8} className='head-right-container' justify='flex-end'>
+                        <Grid item md={2} xs={2} className='head-right'>
+                            {data.subcategories.map(subcategory => {
+                                return (
+                                    <a href={subcategory.link} style={{ textDecoration: 'none' }}>{subcategory.title}</a>
+                                )
+                            })}
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid item lg={2}>
-                    {data.subcategories.map(subcategory => {
-                        return (
-                            <a href={subcategory.link} style={{ textDecoration: 'none' }}>{subcategory.title}</a>
-                        )
-                    })}
+                <Grid item container md={2} xs={4} style={{ borderRight: '2px solid #40403f' }}>
+                    <div className="body-left">
+                        <img src={data.banner.link} alt={data.category.title} style={{ width: '100%' }} />
+                    </div>
                 </Grid>
-            </Grid>
-            <Grid item container lg={2} sm={0} style={{ borderRight: '2px solid #40403f' }}>
-                <img src={data.banner.link} alt={data.category.title} style={{ width: '100%' }} />
-            </Grid>
-            <Grid item container lg={10}>
-                <Grid item lg={12} style={{ borderBottom: '2px solid #40403f' }}>
-                    <Slider {...settings}>
-                        {data.products.map(product => {
+                <Grid item container md={10} xs={8}>
+                    <Grid item md={12} xs={12} style={{ borderBottom: '2px solid #40403f' }}>
+                        <Slider {...settings}>
+                            {data.products.map(product => {
+                                return (
+                                    <Card style={{height: '100%'}} product={product} />
+                                )
+                            })}
+                        </Slider>
+                    </Grid>
+                    <Grid item container md={12} xs={12} justify={"space-evenly"} style={{ flexWrap: "nowrap", overflow: 'hidden' }}>
+                        {data.sponsors.map(sponsor => {
                             return (
-                                <div>
-                                    <Card product={product} />
-                                </div>
+                                <Grid item>
+                                    <img style={{ maxWidth: '140px' }} alt='Sponsor' src={sponsor.image} />
+                                </Grid>
                             )
                         })}
-                    </Slider>
+                    </Grid>
                 </Grid>
-                <Grid item container lg={12} justify={"space-evenly"} style={{ flexWrap: "nowrap", overflow: 'hidden' }}>
-                    {data.sponsors.map(sponsor => {
-                        return (
-                            <Grid item>
-                                <img style={{ maxWidth: '140px' }} alt='Sponsor' src={sponsor.image} />
-                            </Grid>
-                        )
-                    })}
-                </Grid>
-            </Grid>
-        </Grid >
+            </Grid >
+        </div>
     )
 };
 
-export default withStyles(styles)(SimpleTable);
+export default SimpleTable;
